@@ -511,6 +511,10 @@ ggplot(perf_new_long, aes(x=All_scores, fill=Class, color=Class)) +
   labs(title="Density plot of F1 scores for iterations of RF",x="F1 scores from different iterations of RF", y = "Proportions of RF iterations with a given F1 score") +
   xlim (0,1)
 
+
+print("Median F1 scores of ensemble")
+rowMedians(as.matrix(perf_new[,c(2:ncol(perf_new))]), na.rm=TRUE)
+
 varImpPlot(Fit_new$finalModel,
            main = "Important variables in the forest",
            n.var = 80,
@@ -694,7 +698,8 @@ ggplot(perf_final_long, aes(x=All_scores, fill=Class, color=Class)) +
   labs(title="Density plot of F1 scores for iterations of RF",x="F1 scores from different iterations of RF", y = "Proportions of RF iterations with a given F1 score") +
   xlim (0,1)
 
-
+print("Median F1 scores of final ensemble:")
+rowMedians(as.matrix(perf_final[,c(3:ncol(perf_final))]), na.rm=TRUE)
 ```
 
 We found that the new ensemble of 500 forests fared better with the cutaneous neurofibroma class but failed to improve the median F1 scores of the other classes. This suggested to us that selecting top 100 features from each class were not sufficient for efficient classification of the tumortypes. 
